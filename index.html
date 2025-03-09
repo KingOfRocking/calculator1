@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="html" lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Описание сайта">
+  <title>Инвестиционный калькулятор</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.css"
+        integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+  <style>
+    *, &::before, &::after {
+      box-sizing: border-box;
+    }
+
+    .invest {
+      color: #161616;
+      margin-top: 96px;
+      font-size: 22px;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .invest p, h1, h2, h3 {
+      padding: 0;
+      margin: 0;
+    }
+
+    .invest ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1510px;
+      padding: 0 15px;
+      margin: 0 auto;
+    }
+
+    .invest__title {
+      font-size: 42px;
+      line-height: 1.15;
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 46px;
+    }
+
+    .invest__inner {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+      align-items: stretch;
+    }
+
+    .invest__right {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .invest__card {
+      border-radius: 26px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #F2F4FC;
+    }
+
+    .invest__card.blue {
+      background-color: #025ED7;
+      color: #fff;
+    }
+
+    .invest__card.center {
+      text-align: center;
+    }
+
+    .invest__subtitle {
+      font-weight: 600;
+      font-size: 26px;
+      margin-bottom: 26px;
+    }
+
+    .invest .invest__subtitle-left {
+      font-weight: 600;
+      font-size: 24px;
+      margin-bottom: 19px;
+    }
+
+    .invest__sum {
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 300;
+    }
+
+    .invest__link {
+      margin-top: 32px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: center;
+      font-weight: 400;
+      color: #fff;
+      padding: 18px 16px;
+      text-decoration: none;
+      max-width: 400px;
+      width: 100%;
+      font-size: 20px;
+      background-color: #025ED7;
+      border-radius: 16px;
+    }
+
+    .invest__info {
+      font-size: 14px;
+    }
+
+    .invest__items {
+      display: flex;
+      flex-direction: column;
+      max-width: 440px;
+      width: 100%;
+      gap: 46px;
+    }
+
+    .noUi-target {
+      margin-top: 28px;
+      height: 6px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background-color: #025ED7;
+      box-shadow: none;
+    }
+
+    .noUi-connect {
+      display: none;
+    }
+
+    .noUi-handle.noUi-handle-lower {
+      width: 20px;
+      height: 20px;
+      top: -8px;
+      right: -12px;
+      border-radius: 50%;
+      box-shadow: none;
+      border: none;
+      cursor: pointer;
+      background-color: #025ED7;
+    }
+
+    .noUi-handle.noUi-handle-lower::before,
+    .noUi-handle.noUi-handle-lower::after {
+      display: none;
+    }
+
+    .noUi-marker.noUi-marker-horizontal.noUi-marker-normal {
+      display: none;
+    }
+
+    .noUi-marker-horizontal.noUi-marker-large {
+      display: none;
+    }
+
+    .noUi-pips-horizontal {
+      height: auto;
+      padding: 0;
+    }
+
+    .noUi-value-horizontal {
+      height: 18px;
+      width: 2px;
+      font-size: 0;
+      background-color: #025ED7;
+      transform: translate(-50%, -58%);
+    }
+  </style>
+</head>
+<body class="body">
+<section class="invest">
+  <div class="container">
+    <div class="invest__inner">
+      <div class="invest__card">
+        <ul class="invest__items">
+          <li class="invest__item">
+            <p class="invest__subtitle-left">Сумма инвестиций:</p>
+            <p class="invest__subtext" id="sumInvest">50 000 евро</p>
+            <div id="sumInvestSlider" class="custom-slider"></div>
+          </li>
+          <li class="invest__item">
+            <p class="invest__subtitle-left">Прогнозируемая ставка:</p>
+            <p class="invest__subtext" id="forecastPercent">27,3%</p>
+          </li>
+          <li class="invest__item">
+            <p class="invest__subtitle-left">Срок инвестирования:</p>
+            <p class="invest__subtext" id="timeInvest">12 месяцев</p>
+            <div id="timeInvestSlider" class="custom-slider"></div>
+          </li>
+        </ul>
+      </div>
+      <div class="invest__right">
+        <div class="invest__card blue center">
+          <h3 class="invest__subtitle">Сумма в конце периода:</h3>
+          <span class="invest__sum" id="endOfPeriod">63 650 евро</span>
+        </div>
+        <div class="invest__card center">
+          <h3 class="invest__subtitle">Ваш доход составит:</h3>
+          <span class="invest__sum" id="incomeInvest">13 650 евро</span>
+          <a class="invest__link" href="" target="_blank">Написать менеджеру</a>
+          <p class="invest__info">*30% услуги администрирования взымаются в обязательном виде</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js"
+        integrity="sha512-g/feAizmeiVKSwvfW0Xk3ZHZqv5Zs8PEXEBKzL15pM0SevEvoX8eJ4yFWbqakvRj7vtw1Q97bLzEpG2IVWX0Mg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sumInvestSlider = document.getElementById('sumInvestSlider');
+    const timeInvestSlider = document.getElementById('timeInvestSlider');
+    const sumInvest = document.getElementById('sumInvest');
+    const timeInvest = document.getElementById('timeInvest');
+    const forecastPercent = document.getElementById('forecastPercent');
+    const endOfPeriod = document.getElementById('endOfPeriod');
+    const incomeInvest = document.getElementById('incomeInvest');
+
+    const forecastRates = {
+      12: 27.3,
+      18: 48.5,
+      30: 69.5
+    };
+
+    noUiSlider.create(sumInvestSlider, {
+      start: 5000,
+      connect: [true, false],
+      range: {
+        'min': 5000,
+        'max': 300000
+      },
+      step: 5000,
+      format: {
+        to: value => parseInt(value),
+        from: value => parseInt(value)
+      }
+    });
+
+    noUiSlider.create(timeInvestSlider, {
+      start: 12,
+      connect: [true, false],
+      range: {
+        'min': 12,
+        'max': 30
+      },
+      step: 6,
+      format: {
+        to: value => parseInt(value),
+        from: value => parseInt(value)
+      },
+      pips: {
+        mode: 'values',
+        values: [12, 18, 30],
+        density: 10
+      }
+    });
+
+    function calculateIncome(sum, time) {
+      const rate = forecastRates[time] || 0;
+      return sum * (rate / 100);
+    }
+
+    function updateValues() {
+      const sumValue = parseInt(sumInvestSlider.noUiSlider.get());
+      const timeValue = parseInt(timeInvestSlider.noUiSlider.get());
+      const income = calculateIncome(sumValue, timeValue);
+      const total = sumValue + income;
+
+      sumInvest.textContent = `${Math.round(sumValue).toLocaleString('ru-RU')} евро`;
+      timeInvest.textContent = `${timeValue} месяцев`;
+      forecastPercent.textContent = `${forecastRates[timeValue]}%`;
+      incomeInvest.textContent = `${Math.round(income).toLocaleString('ru-RU')} евро`;
+      endOfPeriod.textContent = `${Math.round(total).toLocaleString('ru-RU')} евро`;
+    }
+
+    function correctTimeValue(values, handle) {
+      let value = parseInt(values[handle]);
+      let newValue = value <= 15 ? 12 : value <= 24 ? 18 : 30;
+
+      if (newValue !== value) {
+        timeInvestSlider.noUiSlider.set(newValue);
+      } else {
+        updateValues();
+      }
+    }
+
+    sumInvestSlider.noUiSlider.on('update', updateValues);
+    timeInvestSlider.noUiSlider.on('update', correctTimeValue);
+
+    updateValues();
+  });
+</script>
+</body>
+</html>
